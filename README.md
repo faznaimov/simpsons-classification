@@ -2,7 +2,14 @@
 
 Goal:
 
-Using a trained Keras model, to identify 
+We built an image recognition application.
+A (pretained) Keras model is used to identify a set of images.
+
+Using flask app, the imagine and results will on a web page.
+
+We will use pandas, python to uscss, html, javascript
+
+
 
 model is outside of the route
 
