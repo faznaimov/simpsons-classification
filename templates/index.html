@@ -1,0 +1,43 @@
+<!doctype html>
+<head>
+    <title>Picture Predictor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="bg-primary">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Picture Predictor</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+  </nav>
+  <div class="fluid-container bg-primary">
+
+      <div class="jumbotron row bg-primary">
+        <div class="col-md-7">
+          <h1 class="text-light">Picture Predictor</h1>
+          <h5 class="text-light">Choose a photo and have your picture predicted</h5>
+     
+          <hr class="my-4">
+          <form method=post enctype=multipart/form-data>
+            <p><input type=file name=file value=Choose Photo> 
+               <input type=submit value=PREDICT>
+          </form>
+
+        </div>
+
+
+<div class="card border-dark" style="width: 18rem;">
+    <img width="300px" height="300px" src="/static/" class="card-img-top" alt="Choose A Photo!">
+    <div class="card-body">
+      <h4>Prediction:</h4>
+      <h4 class="card-text"></h4>
+    </div>
+  </div>
+
+         
+        </div>
+
+</div>
+
+</body>
