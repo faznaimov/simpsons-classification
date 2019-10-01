@@ -1,109 +1,83 @@
-import os
-import io
+from flask import Flask, render_template, request, url_for, jsonify
+from keras.applications.inception_v3 import preprocess_input
 import numpy as np
-
-import warnings
-warnings.filterwarnings("ignore")
-
-import tensorflow as tf
-
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications.xception import (Xception, preprocess_input, decode_predictions)
-from tensorflow.keras import backend as K
-
-from flask import Flask, request, redirect, url_for, jsonify, render_template
-
+from keras.models import load_model
+from keras.preprocessing import image
+import base64
+import io
+import os
+import sys
 from werkzeug.utils import secure_filename
 
-# use os path join
-UPLOAD_FOLDER = 'static'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+# from keras.models import load_model
+# import matplotlib.pyplot as plt
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-model = None
-graph = None
-
-#FILE VALIDATION
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+print('About to load the model')
+MODEL_PATH = './models/keras_mnist.h5'
+# MODEL_PATH = os.join('models', 'keras_mnist')'models/keras_mnist.h5'
+# model = load_model(MODEL_PATH)
+print('Model loaded')
 
 
-def load_model():
-    global model
-    global graph
-    model = Xception(weights="imagenet")
-    graph = K.get_session().graph
+def get_file_path_and_save(request):
+    # Get the file from post request
+    f = request.files['file']
 
-load_model()
-
-
-def prepare_image(img):
-    img = image.img_to_array(img)
-    img = np.expand_dims(img, axis=0)
-    img = preprocess_input(img)
-    # return the processed image
-    return img
+    # Save the file to ./uploads
+    # basepath = os.path.dirname(__file__)
+    # file_path = os.path.join(basepath, 'uploads', secure_filename(f.filename))
+    file_path = 'models/'+secure_filename(f.filename)
+    print('Attempting to save the file at path: ', file_path)
+    f.save(file_path)
+    print('Saved image at path: ', file_path)
+    return file_path
 
 
-@app.route('/', methods=['GET', 'POST'])
-def upload_file():
-    display = ""
-    imagefile = ""
-    data = {"success": False}
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+# @app.route('/predict', methods=['POST'])
+# @app.route("/", methods=['POST'])
+@app.route('/predict', methods=['GET', 'POST'])
+def predict():
+    print('----------Entered predict---------')
+    # basepath = os.path.dirname(__file__)
+    # model_path = os.path.join(basepath, 'keras_mnist.h5')
+    # print('Model Path: ', model_path)
+    # model = load_model('models/keras_mnist_2.h5')
+    # print('Model loaded')
     if request.method == 'POST':
-        if 'file' not in request.files:
-            # flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            return redirect(request.url)
-        
-        if file and allowed_file(file.filename):
-            # create a path to the uploads folder
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-
-            file.save(filepath)
-
-            # Load the saved image using Keras and resize it to the Xception
-            # format of 299x299 pixels
-            global image
-            image_size = (299, 299)
-            im = image.load_img(filepath, target_size=image_size, grayscale=False)
-
-            # preprocess the image and prepare it for classification
-            image = prepare_image(im)
-            # imagefile = "Uplaods/"+filename.replace('\\', '/')
-            imagefile = filename
-          
-
-            global graph
-            with graph.as_default():
-                preds = model.predict(image)
-                results = decode_predictions(preds)
-                data["predictions"] = []
-
-                # loop over the results and add them to the list of
-                # returned predictions
-                for (imagenetID, label, prob) in results[0]:
-                    r = {"label": label, "probability": float(prob)}
-                    data["predictions"].append(r)
-
-                # indicate that the request was a success
-                data["success"] = True
-
-       
-        
-        display = data["predictions"][0]["label"]
-
-    return render_template("index.html",display=display,imagefile=imagefile)
+        file_path = get_file_path_and_save(request)
+        # data = request.get_json()['data']
+        # data = base64.b64decode(data)
+        # img_data = io.BytesIO(data)
+        img = image.load_img(file_path, target_size=(28, 28), color_mode="grayscale")
+        x = (255-image.img_to_array(img))/255.0
+        x = np.expand_dims(x, axis=0)
+        print('Image Post-processing complete')
+        predictions = model.predict(x)
+        predictions = predictions.reshape(10)
+        print('Predictions completed, llrs = ', predictions)
+        digit_prob_order = np.argsort(-predictions)
+        thresh = 0.99
+        if predictions[digit_prob_order[0]] > thresh:
+            top_pred_str = ''
+        elif predictions[digit_prob_order[0]] + predictions[digit_prob_order[1]] > thresh:
+            top_pred_str = '  (Prob = {0:.2f}, Other Predictions: {1} with Prob = {2:.2f})'.format(predictions[digit_prob_order[0]], digit_prob_order[1], predictions[digit_prob_order[1]])
+        else:
+            top_pred_str = '  (Prob = {0:.2f}, Other Predictions: [{1}, {3}] with Prob = [{2:.2f}, {4:.2f}])'.format(predictions[digit_prob_order[0]], digit_prob_order[1], predictions[digit_prob_order[1]], digit_prob_order[2], predictions[digit_prob_order[2]])
+        digit_str = str(np.argmax(predictions))
+        output_str = digit_str+top_pred_str
+        print('Predicted digit = ', output_str)
+        return output_str
+    # return render_template('results.html', prediction=digit)
+    # return jsonify({"prediction": data})
 
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host="127.0.0.1", port=8080, debug=True)
