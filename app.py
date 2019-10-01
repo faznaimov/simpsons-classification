@@ -2,19 +2,21 @@ import os
 import io
 import numpy as np
 
-import keras
-from keras.preprocessing import image
-from keras.preprocessing.image import img_to_array
-from keras.applications.xception import (
-    Xception, preprocess_input, decode_predictions)
-from keras import backend as K
+import warnings
+warnings.filterwarnings("ignore")
+
+import tensorflow as tf
+
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.xception import (Xception, preprocess_input, decode_predictions)
+from tensorflow.keras import backend as K
 
 from flask import Flask, request, redirect, url_for, jsonify, render_template
 
 from werkzeug.utils import secure_filename
 
 # use os path join
-UPLOAD_FOLDER = 'static/image'
+UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
@@ -35,12 +37,11 @@ def load_model():
     model = Xception(weights="imagenet")
     graph = K.get_session().graph
 
-
 load_model()
 
 
 def prepare_image(img):
-    img = img_to_array(img)
+    img = image.img_to_array(img)
     img = np.expand_dims(img, axis=0)
     img = preprocess_input(img)
     # return the processed image
@@ -60,8 +61,8 @@ def upload_file():
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
-        
             return redirect(request.url)
+        
         if file and allowed_file(file.filename):
             # create a path to the uploads folder
             filename = secure_filename(file.filename)
@@ -71,15 +72,14 @@ def upload_file():
 
             # Load the saved image using Keras and resize it to the Xception
             # format of 299x299 pixels
+            global image
             image_size = (299, 299)
-            im = keras.preprocessing.image.load_img(filepath,
-                                                    target_size=image_size,
-                                                    grayscale=False)
+            im = image.load_img(filepath, target_size=image_size, grayscale=False)
 
             # preprocess the image and prepare it for classification
             image = prepare_image(im)
             # imagefile = "Uplaods/"+filename.replace('\\', '/')
-            imagefile= filename
+            imagefile = filename
           
 
             global graph
