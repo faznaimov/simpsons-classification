@@ -20,7 +20,7 @@ A (pretained) Keras model is used to identify sets of animated images by the nam
 
 [Dataset Link](https://www.kaggle.com/alexattia/the-simpsons-characters-dataset)
 
-### Technology stack used in developing application is as follows:
+### Technology Stack Used
 - Python
 - HTML/CSS/Bootstrap/Javascript
 - Keras
