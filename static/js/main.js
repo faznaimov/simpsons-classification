@@ -14,7 +14,7 @@ $(document).ready(function () {
                 $('#imagePreview').hide();
                 $('#imagePreview').fadeIn(650);
             }
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(input.files[0]);            
         }
     }
     $("#imageUpload").change(function () {
@@ -28,32 +28,63 @@ $(document).ready(function () {
     });
 
     // Predict
-    $('#btn-predict').click(function () {
-        var form_data = new FormData($('#upload-file')[0]);
 
-        // Show loading animation
+
+    function getPrediction() {
+
+        var imageInput = $('#imagePreview').attr('style').split(",")[1];
+
+        var base64ImageData = imageInput.substring(0,imageInput.length-3);
+        
         $(this).hide();
         $('.loader').show();
 
-        // Make prediction by calling api /predict
-        $.ajax({
-            type: 'POST',
-            url: '/predict',
-            data: form_data,
-            contentType: false,
-            cache: false,
-            processData: false,
-            async: true,
-            success: function (data) {
-                // Get and display the result
-                $('.loader').hide();
-                $('#result').fadeIn(600);
-                $('#result').text(' Result:  ' + data);
-                //$('#result-details').fadeIn(600);
-                //$('#result-details').text(data);
-                console.log('Success!');
+        fetch("/predict",{
+            method: "POST",
+            body: JSON.stringify({image:base64ImageData}),
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
-        });
-    });
+        })
+        .then(data => data.text())
+        .then(data => console.log(data));
+    }
+
+    $('#btn-predict').click(getPrediction);
+
+    // $('#btn-predict').click(function () {
+        
+    //     var form_data = new FormData($('#upload-file')[0]);
+
+
+
+    //     // Show loading animation
+    //     $(this).hide();
+    //     $('.loader').show();
+
+        
+
+
+    //     // Make prediction by calling api /predict
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/predict',
+    //         data: fd,
+    //         contentType: false,
+    //         cache: false,
+    //         processData: false,
+    //         async: true,
+    //         success: function (data) {
+    //             // Get and display the result
+    //             $('.loader').hide();
+    //             $('#result').fadeIn(600);
+    //             $('#result').text(' Result:  ' + data);
+    //             //$('#result-details').fadeIn(600);
+    //             //$('#result-details').text(data);
+    //             console.log('Success!');
+    //         },
+    //     });
+    // });
 
 });
