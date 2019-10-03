@@ -16,9 +16,9 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 print('About to load the model')
-MODEL_PATH = './models/keras_mnist.h5'
-# MODEL_PATH = os.join('models', 'keras_mnist')'models/keras_mnist.h5'
-# model = load_model(MODEL_PATH)
+MODEL_PATH = './models/weights.best.hdf5'
+# MODEL_PATH = os.join('models', 'keras_mnist')'models/weights.best.hdf5'
+model = load_model(MODEL_PATH)
 print('Model loaded')
 
 
