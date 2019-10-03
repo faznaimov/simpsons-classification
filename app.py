@@ -1,48 +1,17 @@
 from flask import Flask, render_template, request, url_for, jsonify, redirect
 import numpy as np
-from keras.applications.inception_v3 import preprocess_input
-from keras.models import load_model
-from keras.preprocessing import image
-import base64
-import io
-import os
-import sys
-from werkzeug.utils import secure_filename
-import imp
-import train
 import logging
-
-################################# FROM JUPYTER NOTEBOOK #########################################
-import warnings
-warnings.filterwarnings("ignore")
-
-import numpy as np
 import cv2
-import matplotlib.pyplot as plt
-import pickle
-import h5py
-import sklearn
-from sklearn.model_selection import train_test_split
-from collections import Counter
 import glob
-import keras
-from keras import backend as K
-from keras.preprocessing.image import ImageDataGenerator
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Activation, Flatten
-from keras.layers import Conv2D, MaxPooling2D
 import train
-from random import shuffle
 import imp
-import os
-from PIL import Image, ImageFont, ImageDraw, ImageEnhance
-
-
 from PIL import Image
 import base64
 import io
-import numpy as np
-# import torch
+
+import warnings
+warnings.filterwarnings("ignore")
+
 
 app = Flask(__name__)
 
