@@ -35,40 +35,9 @@ from random import shuffle
 import imp
 import os
 from PIL import Image, ImageFont, ImageDraw, ImageEnhance
-# %matplotlib inline
 
 ################################# ^^^ FROM JUPYTER NOTEBOOK ^^^ #########################################
 
-# import base64
-# from PIL import Image
-# import cv2
-# from StringIO import StringIO
-# import numpy as np
-
-# def readb64(base64_string):
-#     sbuf = StringIO()
-#     sbuf.write(base64.b64decode(base64_string))
-#     return np.array(Image.open(sbuf))
-#     # return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
-
-# import base64
-
-# def readb64(uri):
-#    #    app.logger.info("uri_kev " + uri)
- 
-# #    encoded_data = uri.split(',')[1]
-#    encoded_data = uri
-
-#    app.logger.info("checkpoint_2 - success")
-#    app.logger.info("encoded_kev " + encoded_data)
-   
-#    img = np.fromstring(base64.b64decode(encoded_data), np.uint8)
-   
-#    app.logger.info("checkpoint_3 - success")
-# #    app.logger.info("img_array_kev ")
-# #    nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
-# #    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-#    return img
 
 #############################################################################################################
 #                     KEEP THE BELOW
@@ -100,7 +69,6 @@ map_characters = {0: 'abraham_grampa_simpson', 1: 'apu_nahasapeemapetilon', 2: '
         11: 'marge_simpson', 12: 'milhouse_van_houten', 13: 'moe_szyslak', 
         14: 'ned_flanders', 15: 'nelson_muntz', 16: 'principal_skinner', 17: 'sideshow_bob'}
 
-app.logger.info("checkpoint_1_PRE - Loading Model")
 
 # MODEL_PATH = './models/weights.best.hdf5'
 # imp.reload(train)
@@ -203,12 +171,7 @@ def index():
 # @app.route("/", methods=['POST'])
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    print('----------Entered predict---------')
-    # basepath = os.path.dirname(__file__)
-    # model_path = os.path.join(basepath, 'keras_mnist.h5')
-    # print('Model Path: ', model_path)
-    # model = load_model('models/keras_mnist_2.h5')
-    # print('Model loaded')
+
     if request.method == 'POST':
 ###################################################################
 
@@ -246,7 +209,6 @@ def predict():
         return str(image_1==image_np_1)
         # return str(type(image_1))
 
-        app.logger.info("checkpoint_4 - success")
         # Make a prediction by calling url_predict with decodedImage as a parameter
         # prediction = url_predict(decodedImage)
 
@@ -254,8 +216,6 @@ def predict():
         app.logger.info(type(image))
         # kevin = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-        return str(type(image))
-        app.logger.info("checkpoint_5 ")
 
         # file = request.files['file']
 ###################################################################
