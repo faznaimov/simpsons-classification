@@ -28,8 +28,6 @@ $(document).ready(function () {
     });
 
     // Predict
-
-
     function getPrediction() {
 
         var imageInput = $('#imagePreview').attr('style').split(",")[1];
@@ -49,6 +47,9 @@ $(document).ready(function () {
         })
         .then(data => data.text())
         .then(data => console.log(data));
+
+        $(this).show();
+        $('.loader').hide();
     }
 
     $('#btn-predict').click(getPrediction);
