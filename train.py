@@ -11,6 +11,7 @@ from collections import Counter
 from sklearn.model_selection import train_test_split
 
 import keras
+from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import LearningRateScheduler, ModelCheckpoint
 from keras.models import Sequential
@@ -23,6 +24,7 @@ map_characters = {0: 'abraham_grampa_simpson', 1: 'apu_nahasapeemapetilon', 2: '
         7: 'homer_simpson', 8: 'kent_brockman', 9: 'krusty_the_clown', 10: 'lisa_simpson', 
         11: 'marge_simpson', 12: 'milhouse_van_houten', 13: 'moe_szyslak', 
         14: 'ned_flanders', 15: 'nelson_muntz', 16: 'principal_skinner', 17: 'sideshow_bob'}
+        
 
 # map_characters = {0: 'abraham_grampa_simpson', 1: 'apu_nahasapeemapetilon'}        
 
@@ -167,6 +169,9 @@ def create_model_six_conv(input_shape):
     return model, opt
 
 def load_model_from_checkpoint(weights_path, six_conv=False, input_shape=(pic_size,pic_size,3)):
+    
+    K.clear_session()
+
     if six_conv:
         model, opt = create_model_six_conv(input_shape)
     else:
