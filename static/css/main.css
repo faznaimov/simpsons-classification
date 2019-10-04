@@ -1,3 +1,16 @@
+
+body{
+    /* background: #000000 url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a96f0438-a479-4f7a-bf57-d2f6a8ceadcd/d5vjnto-32a1c419-3f38-45ea-a8d0-5ee3e8c8c8ff.jpg/v1/fill/w_1024,h_576,q_75,strp/homer_simpson_apple_donut_wallpaper_by_lindsaycookie_d5vjnto-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTc2IiwicGF0aCI6IlwvZlwvYTk2ZjA0MzgtYTQ3OS00ZjdhLWJmNTctZDJmNmE4Y2VhZGNkXC9kNXZqbnRvLTMyYTFjNDE5LTNmMzgtNDVlYS1hOGQwLTVlZTNlOGM4YzhmZi5qcGciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.eBTtM_IVfP3URt4Sg90-u7z6sa5XNFTNqthBO7DZmEI"); */
+    /* background: #000000 url("https://jooinn.com/images/sky-and-clouds-102.jpg"); */
+    /* background: #000000 url("https://i.pinimg.com/originals/22/e3/99/22e399dbf48b06853af23ad7bae350a6.jpg"); */
+    background: #000000 url("https://img.alicdn.com/imgextra/i2/TB1QJ3WHFXXXXapXVXXXXXXXXXX_!!0-item_pic.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%
+}
+
+.row {
+    border: 10px;
+}
 .img-preview {
     width: 256px;
     height: 256px;
