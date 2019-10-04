@@ -80,8 +80,8 @@ def url_predict(url, all_perc=False):
     else:
         return map_characters[np.argmax(a)].replace('_',' ').title()
 ```
-![Predict from file](images/file_pred.png)
-![Predict from URL](images/url_pred.png)
+![Predict from file](images/file_pred.jpg)
+![Predict from URL](images/url_pred.jpg)
 
 ## Technology Stack Used
 - Python
