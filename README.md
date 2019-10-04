@@ -1,4 +1,4 @@
-# The Simpsons Charecter Recognition Application
+# THE SIMPSONS CHARACTER RECOGNITION APPLICATION
 
 Members: Daniel Fischer, Mo Habib, Fazliddin Naimov, Kevin Freehill, Dahmane Skendraoui, Peter Kim
 
@@ -6,12 +6,20 @@ Members: Daniel Fischer, Mo Habib, Fazliddin Naimov, Kevin Freehill, Dahmane Ske
 
 [Visit Deployed Page](#)
 
-## About
+## ABOUT
 
 Deep Learning : Training a convolutional neural network to recognize The Simpsons characters. Our approach to solve this problem will be based on convolutional neural networks (CNNs) : multi-layered feed-forward neural networking able to learn many features.
 
-## Process
+Technology Stack Used:
+- Python
+- HTML/CSS/Bootstrap/Javascript
+- Keras
+- Tensorflow
+- CNN
+- Flask
 
+## PROCESS
+### CNN Model
 #### Dataset
 We used kaggle Simpsons dataset that has more than 40 characters pictures. For training we only used characters that have more than 290 pictures.
 
@@ -53,6 +61,16 @@ The accuracy (f1-sport) is really good : above 90 % for every character except L
 
 ![Confusion Matrix](images/confusion.png)
 
+#### Improving the CNN model
+
+To make the neural net understands more details and more complexity, we can got deeper and add more convolutional layers. We tried with 6 convolutional layers and going deeper (dimensions of the output space 32, 64, 512 vs 32, 64, 256, 1024) . It has improved the accuracy (precision and recall) as you can see below. The lower precision is 0.89 for Nelson Muntz and we only had 300 training examples for this character. Moreover, this model converge quicker : only 40 epochs (vs 200).
+
+![6 convolutional layers net](images/6cln.png)
+
+#### Visualizing predicted characters
+
+![Actual and predicted characters for 12 different characters](images/actvspred.png)
+
 #### Predict from file and URL
 Created two functions that uses model to predict from image and URL.
 
@@ -83,12 +101,8 @@ def url_predict(url, all_perc=False):
 ![Predict from file](images/file_pred.jpg)
 ![Predict from URL](images/url_pred.jpg)
 
-## Technology Stack Used
-- Python
-- HTML/CSS/Bootstrap/Javascript
-- Keras
-- Tensorflow
-- CNN
-- Flask
+### Flask
 
-## Final Application
+### HTML/CSS/JS
+
+## FINAL APPLICATION
