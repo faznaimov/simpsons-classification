@@ -1,19 +1,63 @@
-from flask import Flask, render_template, request, url_for, jsonify, redirect
-import numpy as np
-import logging
-import cv2
-import glob
-import train
-import imp
-from PIL import Image
-import base64
-import io
-
 import warnings
 warnings.filterwarnings("ignore")
 
+import numpy as np
+import cv2
+import io
+import matplotlib.pyplot as plt
+import pickle
+import h5py
+import sklearn
+from sklearn.model_selection import train_test_split
+from collections import Counter
+import glob
+import keras
+from keras.preprocessing import image
+from keras.preprocessing.image import ImageDataGenerator
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Activation, Flatten
+from keras.layers import Conv2D, MaxPooling2D
+import train
+from random import shuffle
+import imp
+import os
+from PIL import Image, ImageFont, ImageDraw, ImageEnhance
+from flask import Flask, request, redirect, url_for, jsonify, render_template
+# %matplotlib inline
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = 'static'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+model = None
+graph = None
+
+#FILE VALIDATION
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def load_model():
+    global model
+    # global graph
+    imp.reload(train)
+    model = train.load_model_from_checkpoint('./models/weights.best.hdf5', six_conv=True)
+    # graph = K.get_session().graph
+load_model()
+
+def file_predict(image_path, all_perc=False):
+    image = cv2.imread(image_path)
+    img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    pic = cv2.resize(image, (64,64))
+    a = model.predict_proba(pic.reshape(1, 64, 64,3))[0]
+    if all_perc:
+        print('\n'.join(['{} : {}%'.format(map_characters[i], round(k*100)) for i,k in sorted(enumerate(a), key=lambda x:x[1], reverse=True)]))
+    else:
+        return map_characters[np.argmax(a)].replace('_',' ').title()
+
 
 
 characters = [k.split('/')[2] for k in glob.glob('./characters/*') if len([p for p in glob.glob(k+'/*') if 'edited' in p or 'pic_vid' in p]) > 290]
@@ -25,44 +69,37 @@ map_characters = {0: 'abraham_grampa_simpson', 1: 'apu_nahasapeemapetilon', 2: '
         14: 'ned_flanders', 15: 'nelson_muntz', 16: 'principal_skinner', 17: 'sideshow_bob'}
 
 
-def readb64(test_image_base64_encoded):
-    base64_decoded = base64.b64decode(test_image_base64_encoded)
-    image = Image.open(io.BytesIO(base64_decoded))
 
-    return image
+@app.route('/', methods=['GET', 'POST'])
 
-
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-
-@app.route('/predict', methods=['GET', 'POST'])
-def predict():
-
+def upload_file():
+    display = ""
+    imagefile = ""
+    data = {"success": False}
     if request.method == 'POST':
-       
-       # train the model
-        imp.reload(train)
-        model = train.load_model_from_checkpoint('./models/weights.best.hdf5', six_conv=True)
-        
-        # Get data from frontend
-        jsonData = request.json
+        if 'file' not in request.files:
 
-        # Decode base64 image using readb64 function
-        decodedImage = readb64(jsonData['image'])
+            # flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
 
-        # convert to np array
-        image_array = np.asarray(decodedImage, dtype="uint8")
+        # if user does not select file, browser also
 
-        # Resize and make prediction
-        pic = cv2.resize(image_array, (64,64))
-        a = model.predict_proba(pic.reshape(1, 64, 64,3))[0]
-        
-        # return prediction to front end
-        return map_characters[np.argmax(a)].replace('_',' ').title()
+        # submit a empty part without filename
 
+        if file.filename == '':
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
 
+            # create a path to the uploads folder
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            imagefile= filename
 
-if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=8080, debug=True)
+    display = file_predict(filepath)
+
+    return render_template("index.html",display=display,imagefile=imagefile)
+ 
+if __name__ == "__main__":
+    app.run(debug=True,port = 8000)
