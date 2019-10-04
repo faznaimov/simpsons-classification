@@ -1,6 +1,12 @@
 {% extends "base.html" %} {% block content %}
 
-<!-- FIRST ROW OF PAGE -->
+<!-- TITLE ROW OF PAGE -->
+<div class="title-container">
+    <a href="https://fontmeme.com/simpsons-font/"><img src="https://fontmeme.com/permalink/191004/3b341866679dfee201c5bf75e9b5c251.png" alt="simpsons-font" border="0"></a>
+    <a href="https://fontmeme.com/simpsons-font/"><img src="https://fontmeme.com/permalink/191004/8a535ff9a15eb95cc5e5199a102f5986.png" alt="simpsons-font" border="0"></a>
+</div>
+
+<!-- FIRST ROW OF PAGE (First Row of Characters)-->
 <div class="row">
     <div class="col-md-2">
         <div id="marge">
@@ -91,7 +97,7 @@
     </div>
 
     <div class="col-md-2">
-        <div id="bart">
+        <div id="bart" style="margin-top: 55px;">
             <div class="head">
                 <div class="no-border body hair hair1"></div>
                 <div class="no-border body hair hair2"></div>
@@ -148,7 +154,7 @@
     </div>
 
     <div class="col-md-2">
-        <div id="comicbookguy">
+        <div id="comicbookguy" style="margin-top: 55px;">
             <div class="head">
                 <div class="hair hair1"></div>
                 <div class="body head1"></div>
@@ -215,7 +221,7 @@
     </div>
 
     <div class="col-md-2">
-        <div id="homer">
+        <div id="homer" style="margin-top: 48px;">
             <div class="head">
                 <!-- Hair and top of head -->
                 <div class="hair1"></div>
@@ -274,7 +280,7 @@
     </div>
 
     <div class="col-md-2">
-        <div id="maggie">
+        <div id="maggie" style="margin-top: 60px;">
             <div class="head">
             
                 <div class="no-border body head-main"></div>
@@ -341,7 +347,7 @@
     </div>
 
     <div class="col-md-2">
-        <div id="lisa">
+        <div id="lisa" style="margin-top: 55px;">
             <div class="head">
             
                 <div class="no-border body head-main"></div>
@@ -412,23 +418,25 @@
     </div>
 </div>
 
-<!-- SECOND ROW OF PAGE -->
+<!-- SECOND ROW OF PAGE (the user input area)-->
 <div class="row">
+    <!-- Below used for spacing -->
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-2">
+    </div>
 
-    <div class="col-sm-2">
-    </div>
-    <div class="col-sm-2">
-    </div>
     <div class="col-sm-4">
         <form id="upload-file" method="post" enctype="multipart/form-data">
             <label for="imageUpload" class="upload-label">
-                Choose...
+                Choose An Image...
             </label>
             <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
         </form>
 
 
-        <div class="image-section" style="display:none;">
+        <!-- <div class="image-section" style="display:none;"> -->
+        <div class="image-section" style>
             <div class="img-preview">
                 <div id="imagePreview">
                 </div>
@@ -447,16 +455,28 @@
             <span> </span>
         </h5>
     </div>
+    
     <div class="col-sm-2">
     </div>
     <div class="col-sm-2">
     </div>
 </div>
 
-<!-- THIRD ROW OF PAGE -->
+
+<!-- THIRD ROW OF PAGE (the output area-->
+<div class="output-container">
+
+    <div class="output-prediction">
+        <label for="Prediction"><a href="https://fontmeme.com/simpsons-font/"><img src="https://fontmeme.com/permalink/191004/e1bab34386616fc7ab8ca836a1fbf4f3.png" alt="simpsons-font" border="0"></a></label>
+        <input class="form-control" id="prediction" type="text" readonly>
+    </div>
+
+</div>
+
+<!-- FOURTH ROW OF PAGE (Second Row of Characters)-->
 <div class="row">
     <div class="col-md-2">
-        <div id="krusty">
+        <div id="krusty" style="margin-top: 30px;">
             <div class="head">
                 <div class="body ear left-ear"></div>
                 <div class="body head-top"></div>
@@ -550,7 +570,7 @@
     </div>
 
     <div class="col-md-2">
-        <div id="mr-burns">
+        <div id="mr-burns" style="margin-top: 80px; margin-left: 60px">
             <div class="head">
                 <div class="hair">
                     <div class="hair-line hair-line1"></div>
@@ -621,7 +641,7 @@
     </div>
 
     <div class="col-md-2">
-        <div id="ned-flanders">
+        <div id="ned-flanders" style="margin-top: 40px;">
             <div class="head">
                 <div class="hair-top hair"></div>
                 <div class="hair-side hair"></div>
@@ -680,7 +700,7 @@
     </div>
 
     <div class="col-md-2">
-        <div id="apu">
+        <div id="apu" style="margin-top: 35px;">
             <div class="head">
                 <div class="hair hair1"></div>
                 <div class="hair hair2"></div>
@@ -734,7 +754,7 @@
     </div>
 
     <div class="col-md-2">
-        <div id="itchy">
+        <div id="itchy" style="margin-top: 55px;">
             <div class="head">
                 <div class="body ear ear-right"></div>
                 <div class="body ear ear-left"></div>
@@ -783,7 +803,7 @@
     </div>
 
     <div class="col-md-2">
-        <div id="smithers">
+        <div id="smithers" style="margin-top: 55px;">
             <div class="head">
                 <div class="hair hair4"></div>
                 <div class="hair hair5"></div>

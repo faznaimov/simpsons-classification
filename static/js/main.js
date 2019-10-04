@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Init
-    $('.image-section').hide();
+    // $('.image-section').hide();
     $('.loader').hide();
     $('#result').hide();
     $('#result-details').hide();
