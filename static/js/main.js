@@ -45,47 +45,15 @@ $(document).ready(function () {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
         })
-        .then(data => data.text())
-        .then(data => console.log(data));
+        .then(data => {
+            return data.text()
+        })
+        .then(data => $('#prediction-textbox').val(data));
 
         $(this).show();
         $('.loader').hide();
     }
 
     $('#btn-predict').click(getPrediction);
-
-    // $('#btn-predict').click(function () {
-        
-    //     var form_data = new FormData($('#upload-file')[0]);
-
-
-
-    //     // Show loading animation
-    //     $(this).hide();
-    //     $('.loader').show();
-
-        
-
-
-    //     // Make prediction by calling api /predict
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '/predict',
-    //         data: fd,
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false,
-    //         async: true,
-    //         success: function (data) {
-    //             // Get and display the result
-    //             $('.loader').hide();
-    //             $('#result').fadeIn(600);
-    //             $('#result').text(' Result:  ' + data);
-    //             //$('#result-details').fadeIn(600);
-    //             //$('#result-details').text(data);
-    //             console.log('Success!');
-    //         },
-    //     });
-    // });
 
 });
