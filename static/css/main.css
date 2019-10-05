@@ -61,11 +61,14 @@ input[type="file"] {
     display: none;
 }
 
+.btn-primary{
+    color: yellow;
+}
 .upload-label{
     display: inline-block;
     padding: 12px 30px;
     background: #39D2B4;
-    color: #fff;
+    color: yellow;
     font-size: 1em;
     transition: all .4s;
     cursor: pointer;
