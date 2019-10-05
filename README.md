@@ -115,7 +115,7 @@ def predict():
 
 ### HTML/CSS/JS
 
-In JavaScript convert the array to base64 string for transport to the server for prediction.  The result was then passed through JavaScript then to the HTML.  
+In JavaScript convert the array to base64 string for transport to the server for prediction.  The result was then passed through JavaScript then to HTML.  
 
     // Predict
     function getPrediction() {
@@ -134,20 +134,6 @@ In JavaScript convert the array to base64 string for transport to the server for
                 'Content-Type': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
-        })
-        .then(data => {
-            return data.text()
-        })
-        .then(data => $('#prediction-textbox').val(data));
-
-        $(this).show();
-        $('.loader').hide();
-    }
-
-    $('#btn-predict').click(getPrediction);
-
-});
-
+        }
+ 
 ## FINAL APPLICATION
-
-
