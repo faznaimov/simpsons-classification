@@ -103,6 +103,51 @@ def url_predict(url, all_perc=False):
 
 ### Flask
 
+Flask connected the python server to JavaScript.  The test Simpson image was converted to array values then passed to JavaScript.
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route('/predict', methods=['GET', 'POST'])
+def predict():
+
 ### HTML/CSS/JS
 
+In JavaScript convert the array to base64 string for transport to the server for prediction.  The result was then passed through JavaScript then to the HTML.  
+
+    // Predict
+    function getPrediction() {
+
+        var imageInput = $('#imagePreview').attr('style').split(",")[1];
+
+        var base64ImageData = imageInput.substring(0,imageInput.length-3);
+        
+        $(this).hide();
+        $('.loader').show();
+
+        fetch("/predict",{
+            method: "POST",
+            body: JSON.stringify({image:base64ImageData}),
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
+        .then(data => {
+            return data.text()
+        })
+        .then(data => $('#prediction-textbox').val(data));
+
+        $(this).show();
+        $('.loader').hide();
+    }
+
+    $('#btn-predict').click(getPrediction);
+
+});
+
 ## FINAL APPLICATION
+
+
