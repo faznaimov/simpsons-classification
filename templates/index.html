@@ -1,33 +1,106 @@
 {% extends "base.html" %} {% block content %}
 
-<div class="row">
-    <div class="col-sm-4">
-        <form id="upload-file" method="post" enctype="multipart/form-data">
-            <label for="imageUpload" class="upload-label">
-                Choose...
-            </label>
-            <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
-        </form>
+<body>
+    <header>
+         <h2>Simpsons Character Recognition Application</h2>
+    </header>
 
-        <div class="image-section" style="display:none;">
-            <div class="img-preview">
-                <div id="imagePreview">
-                </div>
-            </div>
-            <div>
-                <button type="button" class="btn btn-primary btn-lg " id="btn-predict">Predict!</button>
-            </div>
-        </div>
+    <section>
 
-        <div class="loader" style="display:none;"></div>
+            <nav>
 
-        <h3 id="result">
-            <span> </span>
-        </h3>
-        <h5 id="result-details">
-            <span> </span>
-        </h5>
-    </div>
-</div>
+                    <h3>About </h3>
 
+                    <p>
+                    Deep Learning : Training a convolutional neural network to recognize
+                    The Simpsons characters. Our approach to solve this problem will be 
+                    based on convolutional neural networks (CNNs) : 
+                    multi-layered feed-forward neural networking able to learn many 
+                    features.
+                   </p>
+
+              <h3>Technology Stack </h3>
+             
+              <ul>
+                    <li><a > Python </a></li>
+                    <li><a > HTML/CSS/Bootstrap/Javascript </a></li>
+                    <li><a > Keras </a></li>
+                    <li><a > Tensorflow </a></li>
+                    <li><a > CNN </a></li>
+                    <li><a > Flask </a></li>
+             </ul>
+
+             <h3>Dataset </h3>
+             <ul>
+                    
+               <li><a href=https://www.kaggle.com/alexattia/the-simpsons-characters-dataset >Dataset link.</a></li>
+             </ul>
+
+             <h3>Github Package </h3>
+             <ul>
+                    
+               <li><a href=https://github.com/faznaimov/ml-project?fbclid=IwAR2KZMiAJcdn6ZzVFoEIhrfKHi9d6N6SmRK522HylJ9DASgEOHDrK8Q8c3M >Package link.</a></li>
+             </ul>
+
+            </nav>
+            
+            <article>
+                    <div class= "row" style="background-color:rgb(191, 197, 203);font-size:20px;color:rgb(5, 5, 5); padding-bottom: 20px;text-align: center;">
+                            <p style="margin: 0 auto;">
+
+                            Choose a photo of a Simpson character and have your picture predicted 
+                        </p>
+
+                    </div>
+                    <div class="row">
+                            <div id="main" style="width: 250px; height: 400px;background-position:center;background-repeat:no-repeat;">
+                                </div>                            
+                            <div class="col-sm-4">
+                                    <h3>
+                                        
+                                    </h3>
+                                    
+                                <form id="upload-file" method="post" enctype="multipart/form-data">
+                                    <label for="imageUpload" class="upload-label">
+                                        Choose file...
+                                    </label>
+                                    <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+                                </form>
+                                
+                                <h5>Or </h5>
+                                <div class="input-group url-group">
+                                        <input  id="idTextField" name="file" class="form-control" placeholder=" URL of an image">
+                                        <div class="btn btn-default" type="button" id="idTextSubmitButton">Go!</div>
+                                    </div>
+
+                                <div class="image-section" style="display:none;">
+                                    <div class="img-preview">
+                                        <div id="imagePreview">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary btn-lg " id="btn-predict">Predict!</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="loader" style="display:none;"></div>
+                        
+                                <h3 id="result">
+                                    <span> </span>
+                                </h3>
+                                <h5 id="result-details">
+                                    <span> </span>
+                                </h5>
+                            </div>
+                        </div>
+             </article>
+          </section>
+
+ <footer>
+        <p> Members: Daniel Fischer, Mo Habib, Fazliddin Naimov, Kevin Freehill, Dahmane Skendraoui, Peter Kim.
+         </p>
+ </footer>
+
+
+</body>
 {% endblock %}
