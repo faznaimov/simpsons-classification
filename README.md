@@ -55,7 +55,7 @@ Loss and Accuracy (Validation and Training) during training
 ![Loss and Accuracy (Validation and Training) during training](images/loss.png)
 
 #### Classification evaluation
-The accuracy (f1-sport) is really good : above 90 % for every character except Lisa. The precision for Lisa is 82%. Maybe Lisa is mixed up with other characters.
+The accuracy (f1-score) is really good : above 90 % for every character except Lisa. The precision for Lisa is 82%. Maybe Lisa is mixed up with other characters.
 
 ![4 convolutional layers net](images/4cln.png)
 
@@ -103,8 +103,9 @@ def url_predict(url, all_perc=False):
 
 ### Flask
 
-We used a Javascript/HTML frontend with a Flask backend server written in python.  The backend is comprised of two end-points as displayed below - the first endpoint simply renders the page while the second handles prediction requests sent from the frontend.  All requests include a base64 string representation of picture file which is then decoded and converted into an numpy array to be passed thru the model.  Predictions passed back from the model are then relayed to the front end as string, thus completing the initial request. 
+We used a Javascript/HTML frontend with a Flask backend server written in python.  The backend is comprised of two end-points as displayed below - the first endpoint simply renders the page while the second handles prediction requests sent from the frontend.  All requests include a base64 string representation of picture file which is then decoded and converted into an numpy array to be passed thru the model. Predictions passed back from the model are then relayed to the front end as string, thus completing the initial request.
 
+```python
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -112,6 +113,7 @@ def index():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
+```
 
 ### HTML/CSS/JS
 
