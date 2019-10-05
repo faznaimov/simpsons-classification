@@ -120,6 +120,7 @@ def predict():
 The HTML page is comprised of two buttons
 JavaScript convert the array to base64 string for transport to the server for prediction.  The result was then passed through JavaScript then to HTML.  
 
+```javascript
     // Predict
     function getPrediction() {
 
@@ -138,6 +139,7 @@ JavaScript convert the array to base64 string for transport to the server for pr
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
         }
- 
+```
+
 ## FINAL APPLICATION
 ![screenshot](images/app.png)
