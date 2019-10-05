@@ -103,7 +103,7 @@ def url_predict(url, all_perc=False):
 
 ### Flask
 
-Flask connected the python server to JavaScript.  Test Simpsons image were converted to array values then passed to JavaScript.
+We used a Javascript/HTML frontend with a Flask backend server written in python.  The backend is comprised of two end-points as displayed below - the first endpoint simply renders the page while the second handles prediction requests sent from the frontend.  All requests include a base64 string representation of picture file which is then decoded and converted into an numpy array to be passed thru the model.  Predictions passed back from the model are then relayed to the front end as string, thus completing the initial request. 
 
 @app.route("/")
 def index():
@@ -115,6 +115,7 @@ def predict():
 
 ### HTML/CSS/JS
 
+The HTML page is comprised of two buttons
 JavaScript convert the array to base64 string for transport to the server for prediction.  The result was then passed through JavaScript then to HTML.  
 
     // Predict
@@ -137,3 +138,4 @@ JavaScript convert the array to base64 string for transport to the server for pr
         }
  
 ## FINAL APPLICATION
+![screenshot](images/app.png)
