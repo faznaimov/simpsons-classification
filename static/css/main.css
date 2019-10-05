@@ -1,8 +1,16 @@
+@font-face {
+    font-family: 'Simpsons';
+    src: url('../font/Simpsonfont.otf') format("opentype");
+}
+    
 
 body{
     background: #000000 url("https://img.alicdn.com/imgextra/i2/TB1QJ3WHFXXXXapXVXXXXXXXXXX_!!0-item_pic.jpg");
     background-repeat: no-repeat;
-    background-size: 100% 100%
+    background-size: 100% 100%;
+    font-family: Simpsons;
+    color: yellow;
+
 }
 
 .col-md-2 {
