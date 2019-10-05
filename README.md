@@ -138,3 +138,4 @@ JavaScript convert the array to base64 string for transport to the server for pr
         }
  
 ## FINAL APPLICATION
+![screenshot](images/app.png)
