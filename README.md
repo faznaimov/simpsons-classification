@@ -103,7 +103,7 @@ def url_predict(url, all_perc=False):
 
 ### Flask
 
-Flask connected the python server to JavaScript.  The test Simpson image was converted to array values then passed to JavaScript.
+Flask connected the python server to JavaScript.  Test Simpsons image were converted to array values then passed to JavaScript.
 
 @app.route("/")
 def index():
@@ -115,7 +115,7 @@ def predict():
 
 ### HTML/CSS/JS
 
-In JavaScript convert the array to base64 string for transport to the server for prediction.  The result was then passed through JavaScript then to HTML.  
+JavaScript convert the array to base64 string for transport to the server for prediction.  The result was then passed through JavaScript then to HTML.  
 
     // Predict
     function getPrediction() {
