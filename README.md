@@ -121,24 +121,24 @@ The HTML page is comprised of two buttons
 JavaScript convert the array to base64 string for transport to the server for prediction.  The result was then passed through JavaScript then to HTML.  
 
 ```javascript
-    // Predict
-    function getPrediction() {
+// Predict
+function getPrediction() {
 
-        var imageInput = $('#imagePreview').attr('style').split(",")[1];
+    var imageInput = $('#imagePreview').attr('style').split(",")[1];
 
-        var base64ImageData = imageInput.substring(0,imageInput.length-3);
-        
-        $(this).hide();
-        $('.loader').show();
+    var base64ImageData = imageInput.substring(0,imageInput.length-3);
 
-        fetch("/predict",{
-            method: "POST",
-            body: JSON.stringify({image:base64ImageData}),
-            headers: {
-                'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        }
+    $(this).hide();
+    $('.loader').show();
+
+    fetch("/predict",{
+        method: "POST",
+        body: JSON.stringify({image:base64ImageData}),
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+    }
 ```
 
 ## FINAL APPLICATION
