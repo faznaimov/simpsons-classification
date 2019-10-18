@@ -4,7 +4,7 @@ Members: Daniel Fischer, Mo Habib, Fazliddin Naimov, Kevin Freehill, Dahmane Ske
 
 [Final Presentation](Presentation%20for%20Final%20Project.pdf)
 
-[Visit Deployed Page](#)
+[Visit Deployed Page](http://simpsons-classification.herokuapp.com/)
 
 ## ABOUT
 
