@@ -3,7 +3,7 @@ warnings.filterwarnings("ignore")
 
 import numpy as np
 import cv2
-import urllib
+# import urllib
 
 from werkzeug.utils import secure_filename
 
