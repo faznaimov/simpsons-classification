@@ -4,6 +4,7 @@ warnings.filterwarnings("ignore")
 import numpy as np
 import cv2
 import urllib
+
 from werkzeug.utils import secure_filename
 
 import tensorflow as tf
@@ -62,17 +63,17 @@ def create_model():
                   metrics=['accuracy'])
     return model
 
-def url_to_image(url):
-    resp = urllib.request.urlopen(url)
-    image = np.asarray(bytearray(resp.read()), dtype="uint8")
-    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-    return image
+# def url_to_image(url):
+#     resp = urllib.request.urlopen(url)
+#     image = np.asarray(bytearray(resp.read()), dtype="uint8")
+#     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+#     return image
 
-def url_predict(url):
-    image = url_to_image(url)
-    pic = cv2.resize(image, (64,64))
-    a = model.predict_proba(pic.reshape(1, 64, 64,3))[0]
-    return a
+# def url_predict(url):
+#     image = url_to_image(url)
+#     pic = cv2.resize(image, (64,64))
+#     a = model.predict_proba(pic.reshape(1, 64, 64,3))[0]
+#     return a
 
 # load weights into new model
 global model
@@ -85,7 +86,7 @@ graph = tf.get_default_graph()
 def get_file_path_and_save(request):
     # Get the file from post request
     f = request.files['file']
-
+    
     # Save the file to ./uploads
     # basepath = os.path.dirname(__file__)
     # file_path = os.path.join(basepath, 'uploads', secure_filename(f.filename))

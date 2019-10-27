@@ -47,7 +47,7 @@ $(document).ready(function () {
                 $('.loader').hide();
                 $('.output-container').show();
                 $('#result').fadeIn(600);
-                $('#result').text(' The prediction is: ' + data);
+                $('#result').text(' This is ' + data);
                 console.log(data)
             },
         });
