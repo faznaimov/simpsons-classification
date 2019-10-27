@@ -3,7 +3,7 @@ warnings.filterwarnings("ignore")
 
 import numpy as np
 import cv2
-import urllib
+# import urllib
 
 from werkzeug.utils import secure_filename
 
@@ -124,4 +124,4 @@ def classify_url():
         return output_str
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=8080, debug=True, threaded=False)
+    app.run(host='0.0.0.0', port=5000, debug=True)
