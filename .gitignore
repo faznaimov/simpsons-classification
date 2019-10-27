@@ -3,5 +3,4 @@ config.*
 .DS_Store
 *.pyc
 __pycache__
-*.png
 *.pdf
