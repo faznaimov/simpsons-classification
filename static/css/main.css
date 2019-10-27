@@ -31,6 +31,7 @@ body{
 .title {
     font: 100 rem;
 }
+
 .output-container {
     display: flex;
     height: 100px;
@@ -63,6 +64,7 @@ input[type="file"] {
 
 .btn-primary{
     color: yellow;
+    /* margin-left: 25%; */
 }
 .upload-label{
     display: inline-block;
@@ -72,6 +74,7 @@ input[type="file"] {
     font-size: 1em;
     transition: all .4s;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .upload-label:hover{
@@ -83,12 +86,17 @@ input[type="file"] {
     border: 8px solid #f3f3f3; /* Light grey */
     border-top: 8px solid #3498db; /* Blue */
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
     animation: spin 1s linear infinite;
+
 }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+
+.center {
+    margin: 0 auto;
+    width: fit-content;
 }

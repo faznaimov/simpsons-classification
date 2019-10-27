@@ -1,9 +1,9 @@
 $(document).ready(function () {
     // Init
-    // $('.image-section').hide();
+    $('.image-section').hide();
+    $('#btn-predict').hide();
     $('.loader').hide();
-    $('#result').hide();
-    $('#result-details').hide();
+    $('.output-container').hide();
 
     // Upload Preview
     function readURL(input) {
@@ -14,7 +14,7 @@ $(document).ready(function () {
                 $('#imagePreview').hide();
                 $('#imagePreview').fadeIn(650);
             }
-            reader.readAsDataURL(input.files[0]);            
+            reader.readAsDataURL(input.files[0]);
         }
     }
     $("#imageUpload").change(function () {
@@ -22,38 +22,35 @@ $(document).ready(function () {
         $('#btn-predict').show();
         $('#result').text('');
         $('#result').hide();
-        $('#result-details').text('');
-        $('#result-details').hide();
         readURL(this);
     });
 
     // Predict
-    function getPrediction() {
+    $('#btn-predict').click(function () {
+        var form_data = new FormData($('#upload-file')[0]);
 
-        var imageInput = $('#imagePreview').attr('style').split(",")[1];
-
-        var base64ImageData = imageInput.substring(0,imageInput.length-3);
-        
+        // Show loading animation
         $(this).hide();
         $('.loader').show();
 
-        fetch("/predict",{
-            method: "POST",
-            body: JSON.stringify({image:base64ImageData}),
-            headers: {
-                'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
+        // Make prediction by calling api /predict
+        $.ajax({
+            type: 'POST',
+            url: '/predict',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            async: true,
+            success: function (data) {
+                // Get and display the result
+                $('.loader').hide();
+                $('.output-container').show();
+                $('#result').fadeIn(600);
+                $('#result').text(' The prediction is: ' + data);
+                console.log(data)
             },
-        })
-        .then(data => {
-            return data.text()
-        })
-        .then(data => $('#prediction-textbox').val(data));
-
-        $(this).show();
-        $('.loader').hide();
-    }
-
-    $('#btn-predict').click(getPrediction);
+        });
+    });
 
 });
