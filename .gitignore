@@ -4,5 +4,4 @@ config.*
 *.pyc
 __pycache__
 *.png
-*.h5
-*.jpg
+*.pdf
