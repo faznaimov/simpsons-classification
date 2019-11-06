@@ -8,14 +8,13 @@ Members: Daniel Fischer, Mo Habib, Fazliddin Naimov, Kevin Freehill, Dahmane Ske
 
 ## ABOUT
 
-Deep Learning : Training a convolutional neural network to recognize The Simpsons characters. Our approach to solve this problem will be based on convolutional neural networks (CNNs) : multi-layered feed-forward neural networking able to learn many features.
+Training a convolutional neural network to recognize The Simpsons characters. Our approach to solve this problem will be based on convolutional neural networks (CNNs): multi-layered feed-forward neural networking able to learn many features.
 
 Technology Stack Used:
 - Python
 - HTML/CSS/Bootstrap/Javascript
 - Keras
 - Tensorflow
-- CNN
 - Flask
 
 ## PROCESS
@@ -118,27 +117,35 @@ def predict():
 ### HTML/CSS/JS
 
 The HTML page is comprised of two buttons
-JavaScript convert the array to base64 string for transport to the server for prediction.  The result was then passed through JavaScript then to HTML.  
+JavaScript will save the file and transport to the server for prediction.
 
 ```javascript
-// Predict
-function getPrediction() {
+    $('#btn-predict').click(function () {
+        var form_data = new FormData($('#upload-file')[0]);
 
-    var imageInput = $('#imagePreview').attr('style').split(",")[1];
+        // Show loading animation
+        $(this).hide();
+        $('.loader').show();
 
-    var base64ImageData = imageInput.substring(0,imageInput.length-3);
-
-    $(this).hide();
-    $('.loader').show();
-
-    fetch("/predict",{
-        method: "POST",
-        body: JSON.stringify({image:base64ImageData}),
-        headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-    }
+        // Make prediction by calling api /predict
+        $.ajax({
+            type: 'POST',
+            url: '/predict',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            async: true,
+            success: function (data) {
+                // Get and display the result
+                $('.loader').hide();
+                $('.output-container').show();
+                $('#result').fadeIn(600);
+                $('#result').text(' This is ' + data);
+                console.log(data)
+            },
+        });
+    });
 ```
 
 ## FINAL APPLICATION
