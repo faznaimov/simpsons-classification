@@ -27,7 +27,7 @@ We used kaggle Simpsons dataset that has more than 40 characters pictures. For t
 characters = [k.split('/')[2] for k in glob.glob('./characters/*') if len([p for p in glob.glob(k+'/*') if 'edited' in p or 'pic_vid' in p]) > 290]
 ```
 
-The model was trained to classify 18 character only, here is the list:
+The model was trained to classify 18 characters only, here is the list:
 1. Abraham Grampa
 2. Apu Nahasapeemapetilon
 3. Bart Simpson
