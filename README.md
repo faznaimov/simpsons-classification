@@ -20,11 +20,32 @@ Technology Stack Used:
 ## PROCESS
 ### CNN Model
 #### Dataset
+
 We used kaggle Simpsons dataset that has more than 40 characters pictures. For training we only used characters that have more than 290 pictures.
 
 ```python
 characters = [k.split('/')[2] for k in glob.glob('./characters/*') if len([p for p in glob.glob(k+'/*') if 'edited' in p or 'pic_vid' in p]) > 290]
 ```
+
+The model was trained to classify 18 character only, here is the list:
+1. Abraham Grampa
+2. Apu Nahasapeemapetilon
+3. Bart Simpson
+4. Charles Montgomery Burns
+5. Chief Wiggum
+6. Comic Book Guy
+7. Edna Krabappel
+8. Homer Simpson
+9. Kent Brockman
+10. Krusty the Clown
+11. Lisa Simpson
+12. Marge Simpson
+13. Milhouse van Houten
+14. Moe Szyslak
+15. Ned Flanders
+16. Nelson Muntz
+17. Principal Skinner
+18. Sideshow Bob
 
 [Dataset Link](https://www.kaggle.com/alexattia/the-simpsons-characters-dataset)
 
