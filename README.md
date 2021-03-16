@@ -21,13 +21,13 @@ Technology Stack Used:
 ### CNN Model
 #### Dataset
 
-We used kaggle Simpsons dataset that has more than 40 characters pictures. For training we only used characters that have more than 290 pictures.
+We used kaggle Simpsons dataset that has more than 40 characters of pictures. For training, we only used characters that have more than 290 images.
 
 ```python
 characters = [k.split('/')[2] for k in glob.glob('./characters/*') if len([p for p in glob.glob(k+'/*') if 'edited' in p or 'pic_vid' in p]) > 290]
 ```
 
-The model was trained to classify 18 characters only, here is the list:
+The model was trained to classify 18 characters only; here is the list:
 1. Abraham Grampa
 2. Apu Nahasapeemapetilon
 3. Bart Simpson
@@ -50,14 +50,14 @@ The model was trained to classify 18 characters only, here is the list:
 [Dataset Link](https://www.kaggle.com/alexattia/the-simpsons-characters-dataset)
 
 #### Training
-Spliting the data to Train and Test using get_dataset function from train.py.
+Splitting the data to Train and Test using get_dataset function from train.py.
 
 ```python
 imp.reload(train)
 X_train, X_test, y_train, y_test = train.get_dataset(save=True)
 ```
 
-We used a feed forward 4 convolutional layers with ReLU activation followed by a fully connected hidden layer. The model iterated over batches of training set (batch size : 32) for 200 epochs. We also used data augmentation that did a number of random variations over the pictures so the model never see the same picture twice. This helps prevent overfitting and helps the model generalize better.
+We used a feed-forward 4 convolutional layers with ReLU activation followed by a fully connected hidden layer. The model iterated over batches of the training set (batch size: 32) for 200 epochs. We also used data augmentation that did several random variations over the pictures, so the model never sees the same picture twice. This helps prevent overfitting and allows the model to generalize better.
 
 ```python
 datagen = ImageDataGenerator(
@@ -75,7 +75,7 @@ Loss and Accuracy (Validation and Training) during training
 ![Loss and Accuracy (Validation and Training) during training](images/loss.png)
 
 #### Classification evaluation
-The accuracy (f1-score) is really good : above 90 % for every character except Lisa. The precision for Lisa is 82%. Maybe Lisa is mixed up with other characters.
+The accuracy (f1-score) is really good: above 90 % for every character except Lisa. The precision for Lisa is 82%. Maybe Lisa is mixed up with other characters.
 
 ![4 convolutional layers net](images/4cln.png)
 
@@ -83,7 +83,7 @@ The accuracy (f1-score) is really good : above 90 % for every character except L
 
 #### Improving the CNN model
 
-To make the neural net understands more details and more complexity, we can got deeper and add more convolutional layers. We tried with 6 convolutional layers and going deeper (dimensions of the output space 32, 64, 512 vs 32, 64, 256, 1024) . It has improved the accuracy (precision and recall) as you can see below. The lower precision is 0.89 for Nelson Muntz and we only had 300 training examples for this character. Moreover, this model converge quicker : only 40 epochs (vs 200).
+To make the neural net understand more details and more complexity, we can add more convolutional layers. We tried with 6 convolutional layers and going deeper (dimensions of the output space 32, 64, 512 vs. 32, 64, 256, 1024). It has improved the accuracy (precision and recall), as you can see below. The lower precision is 0.89 for Nelson Muntz, and we only had 300 training examples for this character. Moreover, this model converges quicker: only 40 epochs (vs. 200).
 
 ![6 convolutional layers net](images/6cln.png)
 
@@ -123,13 +123,12 @@ def url_predict(url, all_perc=False):
 
 ### Flask
 
-We used a Javascript/HTML frontend with a Flask backend server written in python.  The backend is comprised of two end-points as displayed below - the first endpoint simply renders the page while the second handles prediction requests sent from the frontend.  All requests include a base64 string representation of picture file which is then decoded and converted into an numpy array to be passed thru the model. Predictions passed back from the model are then relayed to the front end as string, thus completing the initial request.
+We used a Javascript/HTML frontend with a Flask backend server written in python. The back end comprises two endpoints, as displayed below - the first endpoint renders the page while the second handle prediction requests sent from the frontend. All requests include a base64 string representation of a picture file that is then decoded and converted into a NumPy array to pass through the model. Predictions passed back from the model are then relayed to the front end as a string, thus completing the initial request.
 
 ```python
 @app.route("/")
 def index():
     return render_template("index.html")
-
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
@@ -137,8 +136,7 @@ def predict():
 
 ### HTML/CSS/JS
 
-The HTML page is comprised of two buttons
-JavaScript will save the file and transport to the server for prediction.
+The HTML page is comprised of two buttons. JavaScript will save the file and transport it to the server for prediction.
 
 ```javascript
     $('#btn-predict').click(function () {
