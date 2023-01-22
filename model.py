@@ -3,6 +3,7 @@ from tensorflow.keras.models import load_model
 import numpy as np
 import cv2
 from werkzeug.utils import secure_filename
+from functools import cache
 
 map_characters = {0: 'abraham_grampa_simpson', 1: 'apu_nahasapeemapetilon', 2: 'bart_simpson', 
         3: 'charles_montgomery_burns', 4: 'chief_wiggum', 5: 'comic_book_guy', 6: 'edna_krabappel', 
@@ -12,7 +13,10 @@ map_characters = {0: 'abraham_grampa_simpson', 1: 'apu_nahasapeemapetilon', 2: '
 
 
 # Loading model
-model = load_model('models/model.h5')
+@cache
+def load_model():
+    global model
+    model = load_model('models/model.h5')
 
 def get_file_path_and_save(request):
     f = request.files['file']
