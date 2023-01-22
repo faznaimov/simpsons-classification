@@ -1,8 +1,6 @@
 Flask==2.1.0
 Jinja2==3.1.2
-numpy==1.21.6
+numpy==1.24.1
 opencv-python==4.7.0.68
 tensorflow==2.7.0
 Werkzeug==2.2.2
-gunicorn
-protobuf>=3.4.0
