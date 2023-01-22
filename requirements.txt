@@ -5,3 +5,4 @@ opencv-python==4.7.0.68
 tensorflow==2.7.0
 Werkzeug==2.2.2
 gunicorn
+protobuf>=3.4.0
